@@ -13,7 +13,7 @@ exports.saveProducts = async (req, res) => {
       if (!p.name || p.name.trim() === "") continue;
 
       await pool.query(
-  "INSERT INTO products(name, sku, quantity, price) VALUES($1,$2,$3,$4) ON CONFLICT (sku) DO NOTHING",
+  "INSERT INTO products(name, sku, quantity, price) VALUES($1,$2,$3,$4)",
   [
     p.name,
     p.sku || "",
