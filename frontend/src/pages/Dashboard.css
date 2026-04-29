@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard {
+  padding: 32px 40px;
+  background: #f0f2f8;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin-bottom: 32px;
+  color: #111827;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.dashboard-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background: #4f46e5;
+  border-radius: 999px;
+}
+
+.dashboard-section {
+  margin-bottom: 24px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px 28px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.dashboard-section:hover {
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.1);
+  transform: translateY(-2px);
+}
