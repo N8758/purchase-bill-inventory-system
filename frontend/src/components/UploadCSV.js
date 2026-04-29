@@ -24,6 +24,7 @@ export default function UploadCSV() {
     await API.post("/products/save", data);
     alert("Saved");
     setData([]);
+    window.location.reload();
   };
 
   return (

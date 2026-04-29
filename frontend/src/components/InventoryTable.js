@@ -9,10 +9,12 @@ import autoTable from "jspdf-autotable";
 export default function InventoryTable() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [originalProducts, setOriginalProducts] = useState([]);
 
   const load = async () => {
     const res = await API.get("/products");
     setProducts(res.data);
+    setOriginalProducts(res.data); 
   };
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function InventoryTable() {
     0
   );
 
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
   const doc = new jsPDF();
 
   const invoiceNo = "INV-" + String(products[0]?.id || Date.now()).padStart(5, "0");
@@ -54,7 +56,7 @@ export default function InventoryTable() {
 
   const tableColumn = ["Product", "SKU", "Qty", "Price", "Total"];
 
-  const tableRows = products.map(p => [
+  const tableRows = originalProducts.map(p => [
     p.name,
     p.sku,
     p.quantity,
@@ -71,12 +73,18 @@ export default function InventoryTable() {
   const finalY = doc.lastAutoTable.finalY || 100;
 
   doc.setFontSize(14);
-  doc.text(`Total Amount: Rs ${totalAmount.toLocaleString()}`, 14, finalY + 10);
+  const total = originalProducts.reduce(
+  (sum, p) => sum + (p.quantity * p.price),
+  0
+);
 
+doc.text(`Total Amount: Rs ${total.toLocaleString()}`, 14, finalY + 10);
   doc.setFontSize(10);
   doc.text("Thank you for your business!", 14, finalY + 20);
 
   doc.save("invoice.pdf");
+  await API.delete("/products/clear");   // clear DB
+  setProducts([]);                       
 };
 
   return (

@@ -52,3 +52,15 @@ exports.updateProduct = async (req, res) => {
     res.status(500).json({ error: "Update failed" });
   }
 };
+
+
+
+exports.clearProducts = async (req, res) => {
+  try {
+    await pool.query("DELETE FROM products");
+    res.json({ message: "All products deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Delete failed" });
+  }
+};
