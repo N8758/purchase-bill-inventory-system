@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://purchase-bill-inventory-system-5.onrender.com/api"
 });
 
 export default API;
